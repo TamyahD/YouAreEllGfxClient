@@ -1,6 +1,6 @@
 import MessageService from "./message-service.js";
 
-let userID = "didntThinkIWouldGetThisFar";
+let userID = "TamyahD";
 const messageService = new MessageService(userID);
 
 window.addEventListener("load", function() {
@@ -35,3 +35,27 @@ function populateThread(messages) {
         document.getElementById("message-list").appendChild(messageListItem);
     })
 }
+
+function createFormListener() {
+    const form = document.getElementById("new-message-form");
+
+    form.onsubmit = function (event) {
+        event.preventDefault();
+
+        const data = {
+            fromid: userID,
+            message: form.message.value
+        };
+
+        messageService.createNewMessage(data)
+            .then(successfulCallback, errorCallback);
+
+        function successfulCallback(response) {
+            console.log(response);
+        }
+
+        function errorCallback(response) {
+            console.log(response);
+        }
+    }
+};
